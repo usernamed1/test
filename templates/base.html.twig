@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            <link id="style" rel="stylesheet" href="css/dark_bootstrap.min.css">
+            {# <link id="style" rel="stylesheet" href="css/light_bootstrap.min.css"> #}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        <div class="container-fluid">
+            <button type="button" class="btn btn-primary" onclick='toggleStyle()'>Toggle</button>
+
+                <!-- cssswitcher js -->
+                <script type='text/javascript'>
+
+                    var cssStyle = document.getElementById('style');
+                    var listStyles = ["css/dark_bootstrap.min.css", "css/light_bootstrap.min.css"];
+
+                    window.onload = function(){
+                        if(localStorage && localStorage.getItem("style"))
+                            cssStyle.href = localStorage.getItem("style");
+                    };
+
+                    function toggleStyle(){
+                        var previousStyle = cssStyle.href;
+
+                        if(previousStyle.endsWith(listStyles[0]))
+                            newStyle = listStyles[1];
+                        else
+                            newStyle = listStyles[0];
+
+                        cssStyle.href = newStyle;
+
+                        if(localStorage)
+                            localStorage.setItem("style", newStyle);
+                    };
+                </script>
+            </div>
+    </body>
+</html>
